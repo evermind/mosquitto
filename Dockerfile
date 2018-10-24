@@ -12,17 +12,22 @@ LABEL Description="This image is used to start a modified mosquitto executable w
 RUN apt-get update && apt-get install -y \
     libssl1.1 \
     libuv1 \
-    libjansson4
+    libjansson4 \
+    python-pip && \
+    pip install j2cli
 
 RUN mkdir /mosquitto
 RUN useradd --no-create-home --shell /usr/sbin/nologin --user-group mosquitto
 
-COPY docker-entrypoint.sh mosquitto mosquitto.conf mosquitto_passwd /mosquitto/
+COPY docker-entrypoint.sh mosquitto mosquitto_passwd /mosquitto/
+#mosquitto.conf pwd
+COPY /templates/ /templates/
 
 RUN chown -R mosquitto:mosquitto /mosquitto
 RUN chmod +x /mosquitto/mosquitto /mosquitto/docker-entrypoint.sh
 
 CMD [ "/mosquitto/mosquitto", "-c", "/mosquitto/mosquitto.conf" ]
+#CMD [ "mosquitto", "-c", "/mosquitto/config/mosquitto.conf"]
 
 ENTRYPOINT [ "/mosquitto/docker-entrypoint.sh" ]
 

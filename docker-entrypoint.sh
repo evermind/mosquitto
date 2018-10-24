@@ -21,4 +21,7 @@ set -x
 export HICAP_IP=${HICAP_IP:-127.0.0.1}
 export HICAP_PORT=${HICAP_PORT:-5555}
 
+j2 /templates/mosquitto.conf > /mosquitto/mosquitto.conf
+j2 /templates/pwd > /mosquitto/pwd
+
 exec "$@"
