@@ -8,10 +8,10 @@ The collected information is sent over TCP/IP JSON to a remote logstash service.
 
 ## General Usage
 
-The destination IP and port of the listening logstash service or netcat can be given to the mosquitto commandline:
+The destination host/IP and port of the listening logstash service or netcat can be given to the mosquitto commandline:
 
 ```
-$ /usr/bin/env HICAP_IP=10.10.10.201 HICAP_PORT=5555 /mosquitto/mosquitto -c /mosquitto/mosquitto.conf
+$ /usr/bin/env HICAP_HOST=10.10.10.201 HICAP_PORT=5555 /mosquitto/mosquitto -c /mosquitto/mosquitto.conf
 ```
 
 A netcat listener can be used instead of logstash for testing purposes:
@@ -29,7 +29,7 @@ $ nc -l -p 5555
 git clone https://github.com/Flex4Apps/mosquitto
 cd mosquitto
 docker build -t hiconnect:mqtt-hicap .
-docker create --name mqtt-bin -i -t -e HICAP_IP=10.10.10.201 -e HICAP_PORT=12345 hiconnect:mqtt-hicap
+docker create --name mqtt-bin -i -t -e HICAP_HOST=10.10.10.201 -e HICAP_PORT=12345 hiconnect:mqtt-hicap
 docker start -a -i mqtt-bin
 ```
 
