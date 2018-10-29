@@ -17,14 +17,14 @@ RUN apt-get update && apt-get install -y \
     pip install j2cli
 
 RUN mkdir /mosquitto
-RUN useradd --no-create-home --shell /usr/sbin/nologin --user-group mosquitto
+#RUN useradd --no-create-home --shell /usr/sbin/nologin --user-group mosquitto
 
 COPY docker-entrypoint.sh mosquitto mosquitto_passwd /mosquitto/
 #mosquitto.conf pwd
 COPY /templates/ /templates/
 
-RUN chown -R mosquitto:mosquitto /mosquitto
-RUN chmod +x /mosquitto/mosquitto /mosquitto/docker-entrypoint.sh
+#RUN chown -R mosquitto:mosquitto /mosquitto
+#RUN chmod +x /mosquitto/mosquitto /mosquitto/docker-entrypoint.sh
 
 CMD [ "/mosquitto/mosquitto", "-c", "/mosquitto/mosquitto.conf" ]
 #CMD [ "mosquitto", "-c", "/mosquitto/config/mosquitto.conf"]
